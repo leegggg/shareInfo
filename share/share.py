@@ -1,10 +1,14 @@
+import sys
+sys.path.insert(0, '.')
+sys.path.insert(0, '..')
+
 import tushare as ts
-from model.AreaClassified import AreaClassified as AreaClassified
+from share.model.AreaClassified import AreaClassified as AreaClassified
 from sqlalchemy import create_engine
-import model.AreaClassified as areaClassified
-from client.SqliteClient import SqliteClient as SqliteClient
-import model as tushareTable
-from model import Base
+from share.model import AreaClassified as areaClassified
+from share.client.SqliteClient import SqliteClient as SqliteClient
+from share import model as tushareTable
+from share.model import Base
 
 from datetime import datetime
 

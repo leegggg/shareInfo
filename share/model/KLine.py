@@ -5,8 +5,9 @@ from dateutil.parser import parse
 from . import Base
 
 
+
 def rowToORM(row, tablename):
-    obj = TableCreator(tablename).KLine()
+    obj = TableCreator(tablename)()
     obj.code = row.loc['code']
     tsString = row.loc['date']
     datetime_object = parse(tsString)
@@ -21,7 +22,9 @@ def rowToORM(row, tablename):
 
 def TableCreator(tablename):
     class KLine(Base):
+
         __tablename__ = tablename
+        __table_args__ = {"useexisting": True}
 
         code = Column(String(32), primary_key=True)  #  VDPP,
         ts = Column(DateTime, primary_key=True)
@@ -31,27 +34,7 @@ def TableCreator(tablename):
         low = Column(Float)  #  observation,
         volume = Column(Float)  #  observation,
 
+        def __init__(self):
+            pass
+
     return KLine
-
-
-def main():
-    import tushare as ts
-    from ..client.SqliteClient import SqliteClient
-    dbclient = SqliteClient(base=Base, url='sqlite:///./test.db')
-    # get_report_data(2017, 3, engine)
-    # rep = ts.cap_tops()
-    code = '600000'
-    type = 'D'
-    print(datetime.now())
-    klines = ts.get_k_data(code=code, ktype=type)
-    print(datetime.now())
-    res = []
-    for _, row in klines.iterrows():
-        res.append(rowToORM(row, "k_{}_{}".format(code, type)))
-    print(datetime.now())
-    dbclient.save_all(res)
-    print(datetime.now())
-
-
-if __name__ == "__main__":
-    main()

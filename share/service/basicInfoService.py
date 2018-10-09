@@ -1,6 +1,7 @@
 import logging
 
 
+
 def getBasicInfo(con, package, fun, clean=True):
     from share.model.dao import Base
 

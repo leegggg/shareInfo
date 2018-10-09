@@ -1,5 +1,6 @@
 import logging
 
+
 def updateKline(code, con, ktype='D', start=None):
     import tushare as ts
     from share.model.dao import KLine

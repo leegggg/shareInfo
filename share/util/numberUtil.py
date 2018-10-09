@@ -8,7 +8,7 @@ def toFloat(string):
 
 
 def toInt(string):
-    res = int('nan')
+    res = float('nan')
     try:
         res = int(string)
     except ValueError:

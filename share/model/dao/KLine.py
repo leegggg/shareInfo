@@ -1,8 +1,6 @@
-from sqlalchemy import Column, String, create_engine, Integer, Float, Text, Date, DateTime
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
+from sqlalchemy import Column, String, Float, DateTime
 from dateutil.parser import parse
-from . import Base
+from share.model.dao import Base
 
 
 

@@ -1,4 +1,6 @@
+xlrd
 tushare
 bs4
 sqlalchemy
 sqlacodegen
+threadpool

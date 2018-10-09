@@ -7,14 +7,14 @@ class Test(unittest.TestCase):
         from share.client.SqliteClient import SqliteClient
         from share.model import Base
         from datetime import datetime
-        from share.model import KLine
+        from share.model.dao import KLine
         dbclient = SqliteClient(base=Base, url='sqlite:///./test.db')
         # get_report_data(2017, 3, engine)
         # rep = ts.cap_tops()
         code = '601766'
         type = 'D'
         print(datetime.now())
-        klines = ts.get_k_data(code=code, ktype=type, start='2000-01-01')
+        klines = ts.get_k_data(code=code, ktype=type, start='2018-01-01')
         print(datetime.now())
         res = []
         for _, row in klines.iterrows():

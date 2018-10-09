@@ -3,9 +3,7 @@ sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 
 import tushare as ts
-from share.model.AreaClassified import AreaClassified as AreaClassified
-from sqlalchemy import create_engine
-from share.model import AreaClassified as areaClassified
+from share.model.dao.classified import ClassifiedArea as areaClassified
 from share.client.SqliteClient import SqliteClient as SqliteClient
 from share import model as tushareTable
 from share.model import Base

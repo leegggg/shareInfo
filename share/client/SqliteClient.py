@@ -9,6 +9,18 @@ class SqliteClient(DBClient.DBClient):
         base.metadata.create_all(self.engine)
         self.DBSession = sessionmaker(bind=self.engine)
 
+    def delete_all(self, model):
+        session = self.DBSession()
+        try:
+            session.query(model).delete()
+            session.commit()
+        except:
+            raise
+        finally:
+            session.close()
+        return
+
+
     def save(self, orm):
         session = self.DBSession()
         try:

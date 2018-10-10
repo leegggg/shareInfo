@@ -48,6 +48,9 @@ def main():
     date = datetime.now()
     boxOfficeService.updateDayBoxoffice(con=dbclient, date=date)
     boxOfficeService.updateDayCinema(con=dbclient, date=date)
+    if date.day == 15:
+        dateMonth = date - timedelta(days=20)
+        boxOfficeService.updateMonthBoxoffice(con=dbclient,year=dateMonth.year,month=dateMonth.month)
 
 
     return

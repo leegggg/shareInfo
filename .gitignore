@@ -1,4 +1,6 @@
 *.db*
+local/
+.DS_Store
 
 #idea
 .idea

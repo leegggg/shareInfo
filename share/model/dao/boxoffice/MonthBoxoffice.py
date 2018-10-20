@@ -16,6 +16,10 @@ def rowToORM(row, year, month):
     obj.box_pro = toFloat(row.loc['box_pro'])  # 月度占比
     obj.iRank = toInt(row.loc['Irank'])  # 排名
     obj.movieName = str(row.loc['MovieName'])[0:Model.TEXT_MAX_LENGTH]  # 影片名
+
+    if obj.movieName == "其他" or obj.movieName == "其它":
+        return None
+
     obj.womIndex = toFloat(row.loc['WomIndex'])  # 口碑指数
     obj.days = toInt(row.loc['days'])
     tsString = str(row.loc['releaseTime'])
@@ -27,9 +31,6 @@ def rowToORM(row, year, month):
                         format(__name__, tsString, obj.releaseTime))
 
     if obj.releaseTime is None:
-        return None
-
-    if obj.movieName == "其他" or obj.movieName == "其它":
         return None
 
     return obj

@@ -4,10 +4,16 @@ from sqlalchemy.orm import sessionmaker
 
 
 class SqliteClient(DBClient.DBClient):
-    def __init__(self, base, url='sqlite:///./share.db'):
+
+    def __init__(self, base, url='sqlite:///./resource.db'):
+        self.url = url
+        self.base = base
         self.engine = create_engine(url)
         base.metadata.create_all(self.engine)
         self.DBSession = sessionmaker(bind=self.engine)
+
+    def new(self):
+        return SqliteClient(base=self.base,url=self.url)
 
     def delete_all(self, model):
         session = self.DBSession()
@@ -19,7 +25,6 @@ class SqliteClient(DBClient.DBClient):
         finally:
             session.close()
         return
-
 
     def save(self, orm):
         session = self.DBSession()

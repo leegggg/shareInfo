@@ -19,7 +19,7 @@ def main():
     from share.client.SqliteClient import SqliteClient
     from share.model.dao import Base
     import share.service as service
-    import share.service.getKLines as getKlines
+    import share.service.klineService as getKlines
     from datetime import timedelta
     from datetime import datetime
     import tushare as ts
@@ -30,29 +30,70 @@ def main():
         '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
 
     dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
 
-    # Update Stock basic classified
-    import share.service.getReportService as reportService
-    reportService.getBasicReport(con=dbclient)
+    # Update Reference
+    logging.info("Daily Update Reference")
+    import share.service.referenceService as referenceService
+    try:
+        referenceService.daily(con=dbclient)
+    except:
+        logging.warning("Failed Daily Update Reference")
 
-    # Update Klines
-    start = datetime.now() - timedelta(config.get('start_days_r'))
-    codes = service.getAllCodes(dbclient)
-    getKlines.getKLines(codes=codes,dbClient=dbclient,ktype='D',start=start)
+    # Update classified
+    logging.info("Daily Update classified")
+    from share.service import classifiedService
+    try:
+        classifiedService.daily(con=dbclient)
+    except:
+        logging.warning("Failed Update classified")
 
     # Update BoxOffice
+    logging.info("Daily Update BoxOffice")
     from share.service import boxOfficeService
-    date = datetime.now()
-    boxOfficeService.updateDayBoxoffice(con=dbclient, date=date)
-    boxOfficeService.updateDayCinema(con=dbclient, date=date)
-    if date.day == 15:
-        dateMonth = date - timedelta(days=20)
-        boxOfficeService.updateMonthBoxoffice(con=dbclient,year=dateMonth.year,month=dateMonth.month)
+    try:
+        boxOfficeService.daily(con=dbclient)
+    except:
+        logging.warning("Failed Update BoxOffice")
+
+    # Update macro
+    logging.info("Daily Update macro")
+    from share.service import macroService
+    try:
+        macroService.daily(con=dbclient)
+    except:
+        logging.warning("Failed Daily Update macro")
+
+    # Update reports
+    logging.info("Daily Update reports")
+    from share.service import reportService
+    try:
+        reportService.daily(con=dbclient)
+    except:
+        logging.warning("Failed Update reports")
+
+    # Update Index Klines
+    logging.info("Daily Update Index Klines")
+    start = datetime.now() - timedelta(config.get('start_days_r'))
+    try:
+        codes = service.getAllIndexCodes()
+        getKlines.getKLinesAsync(dbClient=dbclient, codes=codes, ktype='D', start=start, index=True, multiplier=2)
+    except:
+        logging.warning("Failed Update index Klines")
 
 
+    # Update Klines
+    logging.info("Daily Update Klines")
+    start = datetime.now() - timedelta(config.get('start_days_r'))
+    try:
+        codes = service.getAllCodes(dbclient)
+        getKlines.getKLinesAsync(codes=codes,dbClient=dbclient,ktype='D',start=start)
+    except:
+        logging.warning("Failed Update Klines")
+
+    logging.info("All tasks finished, big brother is watching.")
     return
 
 

@@ -1,4 +1,7 @@
 import logging
+from share.util.dateModel import YearQuarter
+from datetime import datetime
+from datetime import timedelta
 
 
 def downloadReports(year, quarter):
@@ -33,7 +36,6 @@ def downloadReports(year, quarter):
 def getReport(con, yearQuarter):
     from share.model.dao import Base
     from share.model.dao.report import ReportMain as Model
-    from share.util.dateModel import YearQuarter
 
     if yearQuarter is None:
         yearQuarter = YearQuarter.fromDate().__last__()
@@ -81,4 +83,17 @@ def getBasicReport(con, clean=False):
     if clean is True and len(res)>0:
         con.delete_all(res[0].__class__)
     con.save_all(res)
+    return
+
+
+def daily(con):
+    logging.debug("Daily update of Reports")
+
+    getBasicReport(con=con)
+
+    end = YearQuarter.fromDate(date=datetime.now())
+    start = YearQuarter.fromDate(date=datetime.now() - timedelta(days=180))
+
+    getReports(con=con,fromYearQuarter=start,toYearQuarter=end)
+
     return

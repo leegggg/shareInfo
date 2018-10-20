@@ -30,7 +30,7 @@ def main():
     service.updateRealtimeBoxoffice(con=dbclient)
     service.updateDayBoxoffice(con=dbclient, date=datetime.now())
 
-    date = datetime(year=2011,month=3,day=1)
+    date = datetime(year=2010,month=3,day=1)
     while date.timestamp() < datetime.now().timestamp():
         logging.info("Update box office data of {}".format(date.strftime("%Y-%m-%d")))
 

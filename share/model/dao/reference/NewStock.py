@@ -6,7 +6,7 @@ from dateutil.parser import parse
 import logging
 
 
-def rowToORM(row,year,quarter):
+def rowToORM(row):
     obj = Model()
 
     obj.code = str(row.loc['code'])  # 股票代码
@@ -30,6 +30,9 @@ def rowToORM(row,year,quarter):
         logging.warning("Fail to get date from {} from {}. Using {} as Fallback".
                         format(__name__, tsString, obj.issue_date))
 
+    if obj.code is None or obj.ipo_date is None:
+        return None
+
     obj.amount = toInt(row.loc['amount'])  # 发行数量(万股)
     obj.markets = toInt(row.loc['markets'])  # 上网发行数量(万股)
     obj.price = toFloat(row.loc['price'])  # 发行价格(元)
@@ -52,7 +55,7 @@ class Model(Base):
     name = Column(String(32))  # 名称
     date = Column(Date)  # 收集日期
     ipo_date = Column(Date, primary_key=True)  # 上网发行日期
-    issue_date = Column(Date, primary_key=True)  # 上市日期
+    issue_date = Column(Date)  # 上市日期
     amount = Column(Integer)  # 发行数量(万股)
     markets = Column(Integer)  # 上网发行数量(万股)
     price = Column(Float)  # 发行价格(元)

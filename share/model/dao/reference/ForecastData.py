@@ -23,7 +23,7 @@ def rowToORM(row,year,quarter):
                         format(__name__, tsString, obj.report_date))
 
     obj.pre_eps = toFloat(row.loc['pre_eps'])  # 分红金额（每10股）
-    obj.range = toFloat(row.loc['range'])  # 转增和送股数（每10股）
+    obj.range = str(row.loc['range'])[0:255]  # 转增和送股数（每10股）
     return obj
 
 
@@ -42,5 +42,5 @@ class Model(Base):
     quarter = Column(Integer)
     report_date = Column(Date, primary_key=True)  # 发布日期
     pre_eps = Column(Float)  # 上年同期每股收益
-    range = Column(Float)  # 业绩变动范围
+    range = Column(String(255))  # 业绩变动范围
 

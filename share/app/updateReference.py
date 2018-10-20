@@ -14,12 +14,13 @@ def main():
 
     dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
 
-    import share.service.reportService as service
+    import share.service.referenceService as service
+    from datetime import datetime
     import tushare as ts
     from share.util.dateModel import YearQuarter
 
     # service.getReports(con=dbclient,fromYearQuarter=YearQuarter.fromDate().__last__())
-    service.getReports(con=dbclient, fromYearQuarter=YearQuarter(year=1985,quarter=3))
+    service.getAll(con=dbclient,start=datetime(year=1991,month=1,day=1),end=datetime.now())
 
     return
 

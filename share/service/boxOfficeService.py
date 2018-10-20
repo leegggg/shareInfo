@@ -2,6 +2,7 @@ import tushare as ts
 import logging
 from share.model.dao import Base
 from datetime import datetime
+from datetime import timedelta
 
 def updateRealtimeBoxoffice(con):
     import share.model.dao.boxoffice.RealtimeBoxoffice as Model
@@ -46,6 +47,7 @@ def updateDayCinema(con, date: datetime):
     con.save_all(res)
     return
 
+
 def updateMonthBoxoffice(con, year: int, month: int):
     import share.model.dao.boxoffice.MonthBoxoffice as Model
     dateString = "{year:04d}-{month:02d}".format(year=year,month=month)
@@ -59,3 +61,14 @@ def updateMonthBoxoffice(con, year: int, month: int):
     Base.metadata.create_all(con.engine)
     con.save_all(res)
     return
+
+
+def daily(con):
+    logging.debug("Daily update boxOffice")
+    date = datetime.now()
+    updateDayBoxoffice(con=con, date=date)
+    updateDayCinema(con=con, date=date)
+    if date.day == 15:
+        dateMonth = date - timedelta(days=20)
+        updateMonthBoxoffice(con=con,year=dateMonth.year,month=dateMonth.month)
+

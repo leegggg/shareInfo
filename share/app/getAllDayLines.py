@@ -21,6 +21,7 @@ def main():
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
+    #dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
     dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
 
     # Update Index Klines

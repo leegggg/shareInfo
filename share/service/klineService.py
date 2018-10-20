@@ -17,7 +17,7 @@ def updateKline(code, con, ktype='D', start=None):
     klines = ts.get_k_data(code=code, ktype=ktype, start=start)
     res = []
     for _, row in klines.iterrows():
-        res.append(KLine.rowToORM(row, "k_{}_{}".format(code, ktype)))
+        res.append(KLine.rowToORM(row, "k_{}".format(code, ktype), ktype=ktype))
     Base.metadata.create_all(con.engine)
     con.save_all(res)
     return
@@ -36,7 +36,7 @@ def downloadKlineToQueue(q: Queue, code: str, ktype: str='D', index: bool=False,
     if start is None:
         start = datetime.now() - timedelta(days=90)
     start = start.strftime('%Y-%m-%d')
-    logging.debug("Downloading Kline of [{}] type {} from {} in MQ {}".format(code, ktype ,start, q.qsize()))
+    logging.debug("Downloading Kline of [{}] type {} from {} in MQ {}".format(code, ktype, start, q.qsize()))
     klines = ts.get_k_data(code=code, ktype=ktype, start=start, index=index)
     if index is True:
         code = "INDEX_{}".format(code)
@@ -62,7 +62,7 @@ def writeKlinesToDB(con, q: Queue, timeout: float=5, createTable: bool=False):
     klines = obj.get('df')
     res = []
     for _, row in klines.iterrows():
-        res.append(KLine.rowToORM(row, "k_{}_{}".format(obj.get('code'), obj.get('ktype'))))
+        res.append(KLine.rowToORM(row, "k_{}".format(obj.get('code')), ktype=obj.get('ktype')))
 
     if createTable:
         logging.debug("Base.metadata.create_all")
@@ -78,12 +78,12 @@ def writeKlinesToDB(con, q: Queue, timeout: float=5, createTable: bool=False):
     return obj
 
 
-def writeAllObjsToDB(con, q: Queue, timeout: float=5):
+def writeAllObjsToDB(con: str, q: Queue, timeout: float=5):
     from share.client.SqliteClient import SqliteClient
     from share.model.dao import Base
-    con = SqliteClient(base=Base, url='sqlite:///./share.db')
+    dbClient = SqliteClient(base=Base, url=con)
     while True:
-        if writeKlinesToDB(con, q, timeout=timeout) is None:
+        if writeKlinesToDB(dbClient, q, timeout=timeout) is None:
             logging.debug("Nothing more in Queue")
             break
     return
@@ -92,6 +92,9 @@ def writeAllObjsToDB(con, q: Queue, timeout: float=5):
 def getKLinesAsync(dbClient, codes, ktype='D', start=None, index=False, multiplier: int=2):
     import multiprocessing
     from multiprocessing import pool
+
+    logging.debug("getKLinesAsync length: {}, type: {}, start: {}".format(
+        len(codes), ktype, start.strftime("%Y-%m-%d")))
 
     threads = multiplier * multiprocessing.cpu_count()
 
@@ -117,7 +120,7 @@ def getKLinesAsync(dbClient, codes, ktype='D', start=None, index=False, multipli
     # Write to DB
     writePool = pool.Pool(threads)
     kwds = {
-        'con': None,
+        'con': dbClient.url,
         'q': klineQueue
     }
     for _ in range(multiplier):

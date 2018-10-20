@@ -1,3 +1,4 @@
+pymysql
 xlrd
 tushare
 bs4

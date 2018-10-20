@@ -7,7 +7,7 @@ config = {
     'start_days_r': 8,
     'start_r': True,
     'start_days_r': 15,
-    'db_url': 'sqlite:///./share.db'
+    'db_url': 'mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt'
 }
 
 
@@ -30,7 +30,7 @@ def main():
         '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
 

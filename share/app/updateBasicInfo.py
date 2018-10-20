@@ -14,7 +14,8 @@ def main():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
-    dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
+    # dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
+    dbclient = SqliteClient(base=Base, url='mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt')
 
     import share.service.basicInfoService as service
     import tushare as ts

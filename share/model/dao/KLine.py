@@ -4,9 +4,10 @@ from share.model.dao import Base
 
 
 
-def rowToORM(row, tablename):
+def rowToORM(row, tablename, ktype):
     obj = TableCreator(tablename)()
     obj.code = row.loc['code']
+    obj.ktype = str(ktype)
     tsString = row.loc['date']
     datetime_object = parse(tsString)
     obj.ts = datetime_object
@@ -25,6 +26,7 @@ def TableCreator(tablename):
         __table_args__ = {"useexisting": True}
 
         code = Column(String(32), primary_key=True)  #  VDPP,
+        ktype = Column(String(32), primary_key=True)  # VDPP,
         ts = Column(DateTime, primary_key=True)
         open = Column(Float)  #  observation,
         close = Column(Float)  #  observation,

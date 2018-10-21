@@ -2,5 +2,6 @@
     "start_r": true,
     "start_days_r": 60,
     "thread_multi": 4,
-    "db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt"
+    "db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt",
+    "log_level": 20
 }

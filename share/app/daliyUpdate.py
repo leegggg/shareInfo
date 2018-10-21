@@ -23,8 +23,15 @@ def main():
         'start_r': True,
         'start_days_r': 45,
         'thread_multi': 4,
-        'db_url': 'mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt'
+        'db_url': 'mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt',
+        'log_level': 10
     }
+
+
+
+    # Load config
+    with open('config.json') as json_data:
+        config = json.load(json_data)
 
     logger = logging.getLogger()
     handler = logging.StreamHandler()
@@ -32,13 +39,9 @@ def main():
         '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(config.get('log_level'))
 
-    # Load config
-    with open('config.json') as json_data:
-        config = json.load(json_data)
-        logging.info(str(config))
-
+    logging.info(str(config))
     dbclient = SqliteClient(base=Base, url=config.get('db_url'))
 
     # Update Reference

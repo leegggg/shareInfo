@@ -49,12 +49,15 @@ class SqliteClient(DBClient.DBClient):
         session = self.DBSession()
         try:
             for orm in orms:
-                session.add(orm)
+                session.merge(orm)
             session.commit()
-        except Exception as e:
+        except IntegrityError as e:
             logging.warning("Bulk write with error try on by one with {}".format(str(e)))
             for orm in orms:
                 self.save(orm)
+        except Exception as e:
+            logging.warning("Write failed with:".format(str(e)))
+            raise
         finally:
             session.close()
         return

@@ -19,7 +19,7 @@ def updateKline(code, con, ktype='D', start=None):
     for _, row in klines.iterrows():
         res.append(KLine.rowToORM(row, "k_{}".format(code, ktype), ktype=ktype))
     Base.metadata.create_all(con.engine)
-    con.save_all(res, oneByOne=True)
+    con.save_all(res, oneByOne=False)
     return
 
 
@@ -69,11 +69,11 @@ def writeKlinesToDB(con, q: Queue, timeout: float=5, createTable: bool=False):
         Base.metadata.create_all(con.engine)
 
     try:
-        con.save_all(res, oneByOne=True)
+        con.save_all(res, oneByOne=False)
     except:
         logging.debug("Except Base.metadata.create_all")
         Base.metadata.create_all(con.engine)
-        con.save_all(res)
+        con.save_all(res, oneByOne=False)
 
     return obj
 

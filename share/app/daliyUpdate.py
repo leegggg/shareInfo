@@ -80,7 +80,7 @@ def main():
     start = datetime.now() - timedelta(config.get('start_days_r'))
     try:
         codes = service.getAllIndexCodes()
-        getKlines.getKLinesAsync(dbClient=dbclient, codes=codes, ktype='D', start=start, index=True, multiplier=2)
+        getKlines.getKLinesAsync(dbClient=dbclient, codes=codes, ktype='D', start=start, index=True, multiplier=4)
     except Exception as e:
         logging.warning("Failed Update index Klines {}".format(str(e)))
 

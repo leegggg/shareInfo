@@ -96,7 +96,7 @@ def getKLinesAsync(dbClient, codes, ktype='D', start=None, index=False, multipli
     logging.debug("getKLinesAsync length: {}, type: {}, start: {}".format(
         len(codes), ktype, start.strftime("%Y-%m-%d")))
 
-    threads = multiplier * multiprocessing.cpu_count()
+    threads = multiplier * multiprocessing.cpu_count() * 2
 
     m = multiprocessing.Manager()
     klineQueue :Queue = m.Queue(maxsize=len(codes)+10)

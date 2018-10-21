@@ -31,5 +31,5 @@ class Model(Base):
     # 表的结构:
     exe_date = Column(Date, primary_key=True)  # 变动日期
     loan_type = Column(String(255), primary_key=True)  # 存款种类
-    rate = Column(Float)  # 利率（ % ）
+    rate = Column(Float(53))  # 利率（ % ）
 

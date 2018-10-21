@@ -36,6 +36,6 @@ class Model(Base):
     name = Column(String(32))  # 股票名称
     year = Column(Integer)  # 分配年份
     report_date = Column(Date, primary_key=True)  # 公布日期
-    divi = Column(Float)  # 分红金额（每10股）
-    shares = Column(Float)  # 转增和送股数（每10股）
+    divi = Column(Float(53))  # 分红金额（每10股）
+    shares = Column(Float(53))  # 转增和送股数（每10股）
 

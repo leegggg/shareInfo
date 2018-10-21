@@ -35,11 +35,11 @@ class Model(Base):
     # 表的结构:
     year = Column(Integer, primary_key=True)
     quarter = Column(Integer, primary_key=True)  # 统计时间
-    gdp_yoy = Column(Float)  # 国内生产总值同比增长( %)
-    pi = Column(Float)  # 第一产业增加值(亿元)
-    pi_yoy = Column(Float)  # 第一产业增加值同比增长( %)
-    si = Column(Float)  # 第二产业增加值(亿元)
-    si_yoy = Column(Float)  # 第二产业增加值同比增长( %)
-    ti = Column(Float)  # 第三产业增加值(亿元)
-    ti_yoy = Column(Float)  # 第三产业增加值同比增长( %)
+    gdp_yoy = Column(Float(53))  # 国内生产总值同比增长( %)
+    pi = Column(Float(53))  # 第一产业增加值(亿元)
+    pi_yoy = Column(Float(53))  # 第一产业增加值同比增长( %)
+    si = Column(Float(53))  # 第二产业增加值(亿元)
+    si_yoy = Column(Float(53))  # 第二产业增加值同比增长( %)
+    ti = Column(Float(53))  # 第三产业增加值(亿元)
+    ti_yoy = Column(Float(53))  # 第三产业增加值同比增长( %)
 

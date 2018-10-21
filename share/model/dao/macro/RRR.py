@@ -23,15 +23,19 @@ def rowToORM(row):
 
 class Model(Base):
     # 表的名字:
+    # 存款准备金率
     __tablename__ = 'MACRO_RRR'
     TEXT_MAX_LENGTH = 255
 
     def __init__(self):
         pass
 
+
+
+
     # 表的结构:
     exe_date = Column(Date, primary_key=True)  # 变动日期
-    before = Column(Float)
-    now = Column(Float)
-    changed = Column(Float)
+    before = Column(Float(53))  # before: 调整前存款准备金率( %)
+    now = Column(Float(53))  # now: 调整后存款准备金率( %)
+    changed = Column(Float(53))  # changed: 调整幅度( %)
 

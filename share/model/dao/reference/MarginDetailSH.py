@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, Date, String
+from sqlalchemy import Column, Integer, Float, Date, String, BigInteger
 from share.model.dao import Base
 from share.util.numberUtil import toFloat, toInt
 from dateutil.parser import parse
@@ -40,11 +40,11 @@ class Model(Base):
     opDate = Column(Date, primary_key=True)  # 信用交易日期
     code = Column(String(32), primary_key=True)  # 标的证券代码
     name = Column(String(32))  # 标的证券简称
-    rzye = Column(Integer)  # 本日融资余额(元)
-    rzmre = Column(Integer)  # 本日融资买入额(元)
-    rzche = Column(Integer)  # 本日融资偿还额(元)
-    rqyl = Column(Integer)  # 本日融券余量
-    rqmcl = Column(Integer)  # 本日融券卖出量
-    rqchl = Column(Integer)  # 本日融券偿还量
+    rzye = Column(BigInteger)  # 本日融资余额(元)
+    rzmre = Column(BigInteger)  # 本日融资买入额(元)
+    rzche = Column(BigInteger)  # 本日融资偿还额(元)
+    rqyl = Column(BigInteger)  # 本日融券余量
+    rqmcl = Column(BigInteger)  # 本日融券卖出量
+    rqchl = Column(BigInteger)  # 本日融券偿还量
 
 

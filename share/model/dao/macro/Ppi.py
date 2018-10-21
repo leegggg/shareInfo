@@ -39,15 +39,15 @@ class Model(Base):
     # 表的结构:
     year = Column(Integer, primary_key=True)
     month = Column(Integer, primary_key=True)  # 统计时间
-    ppiip = Column(Float)  # 工业品出厂价格指数
-    ppi = Column(Float)  # 生产资料价格指数
-    qm = Column(Float)  # 采掘工业价格指数
-    rmi = Column(Float)  # 原材料工业价格指数
-    pi = Column(Float)  # 加工工业价格指数
-    cg = Column(Float)  # 生活资料价格指数
-    food = Column(Float)  # 食品类价格指数
-    clothing = Column(Float)  # 衣着类价格指数
-    roeu = Column(Float)  # 一般日用品价格指数
-    dcg = Column(Float)  # 耐用消费品价格指数
+    ppiip = Column(Float(53))  # 工业品出厂价格指数
+    ppi = Column(Float(53))  # 生产资料价格指数
+    qm = Column(Float(53))  # 采掘工业价格指数
+    rmi = Column(Float(53))  # 原材料工业价格指数
+    pi = Column(Float(53))  # 加工工业价格指数
+    cg = Column(Float(53))  # 生活资料价格指数
+    food = Column(Float(53))  # 食品类价格指数
+    clothing = Column(Float(53))  # 衣着类价格指数
+    roeu = Column(Float(53))  # 一般日用品价格指数
+    dcg = Column(Float(53))  # 耐用消费品价格指数
 
 

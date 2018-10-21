@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, Date, String
+from sqlalchemy import Column, Integer, Float, Date, String, BigInteger
 from share.model.dao import Base
 from share.util.numberUtil import toFloat, toInt
 from dateutil.parser import parse
@@ -34,10 +34,10 @@ class Model(Base):
 
     # 表的结构:
     opDate = Column(Date, primary_key=True)  # 信用交易日期(index)
-    rzye = Column(Float)  # 本日融资余额(元)
-    rzmre = Column(Float)  # 本日融资买入额(元)
-    rqyl = Column(Float)  # 本日融券余量
-    rqylje = Column(Float)  # 本日融券余量金额(元)
-    rqmcl = Column(Float)  # 本日融券卖出量
-    rzrqjyzl = Column(Float)  # 本日融资融券余额(元)
+    rzye = Column()  # 本日融资余额(元)
+    rzmre = Column(BigInteger)  # 本日融资买入额(元)
+    rqyl = Column(BigInteger)  # 本日融券余量
+    rqylje = Column(BigInteger)  # 本日融券余量金额(元)
+    rqmcl = Column(BigInteger)  # 本日融券卖出量
+    rzrqjyzl = Column(BigInteger)  # 本日融资融券余额(元)
 

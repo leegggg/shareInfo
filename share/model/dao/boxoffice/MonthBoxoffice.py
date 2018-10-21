@@ -49,11 +49,11 @@ class Model(Base):
     month = Column(Integer, primary_key=True)
     avgPrice = Column(Integer)  # 平均票价
     avpPeoPle = Column(Integer)  # 场均人次
-    boxOffice = Column(Float)  # 单日票房（万）
-    box_pro = Column(Float)  # 月度占比
+    boxOffice = Column(Float(53))  # 单日票房（万）
+    box_pro = Column(Float(53))  # 月度占比
     iRank = Column(Integer)  # 排名
     movieName = Column(String(255), primary_key=True)  # 影片名
-    womIndex = Column(Float)  # 口碑指数
+    womIndex = Column(Float(53))  # 口碑指数
     days = Column(Integer)
     releaseTime = Column(Date, primary_key=True)
 

@@ -47,11 +47,11 @@ class Model(Base):
         pass
 
     # 表的结构:
-    boxOffice = Column(Float)  # 实时票房（万）
+    boxOffice = Column(Float(53))  # 实时票房（万）
     irank = Column(Integer)  # 排名
     movieName = Column(String(255), primary_key=True)  # 影片名
-    boxPer = Column(Float)  # 票房占比 （ % ）
+    boxPer = Column(Float(53))  # 票房占比 （ % ）
     movieDay = Column(Integer)  # 上映天数
-    sumBoxOffice = Column(Float)  # 累计票房（万）
+    sumBoxOffice = Column(Float(53))  # 累计票房（万）
     time = Column(DateTime, primary_key=True)  # 数据获取时间
 

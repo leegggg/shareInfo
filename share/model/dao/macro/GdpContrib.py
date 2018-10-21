@@ -26,10 +26,10 @@ class Model(Base):
 
     # 表的结构:
     year = Column(Integer, primary_key=True)
-    gdp_yoy = Column(Float)  # 国内生产总值
-    pi = Column(Float)  # 第一产业献率( %)
-    si = Column(Float)  # 第二产业献率( %)
-    industry = Column(Float)  # 其中工业献率( %)
-    ti = Column(Float)  # 第三产业献率( %)
+    gdp_yoy = Column(Float(53))  # 国内生产总值
+    pi = Column(Float(53))  # 第一产业献率( %)
+    si = Column(Float(53))  # 第二产业献率( %)
+    industry = Column(Float(53))  # 其中工业献率( %)
+    ti = Column(Float(53))  # 第三产业献率( %)
 
 

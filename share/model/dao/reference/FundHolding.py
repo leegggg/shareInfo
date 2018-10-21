@@ -47,8 +47,8 @@ class Model(Base):
 
     nums = Column(Integer)  # 基金家数
     nlast = Column(Integer)  # 与上期相比（增加或减少了）
-    count = Column(Float)  # 基金持股数（万股）
-    clast = Column(Float)  # 与上期相比
-    amount = Column(Float)  # 基金持股市值
-    ratio = Column(Float)  # 占流通盘比率
+    count = Column(Float(53))  # 基金持股数（万股）
+    clast = Column(Float(53))  # 与上期相比
+    amount = Column(Float(53))  # 基金持股市值
+    ratio = Column(Float(53))  # 占流通盘比率
 

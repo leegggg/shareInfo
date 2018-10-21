@@ -12,7 +12,7 @@ def rowToORM(row, date: datetime):
     obj.avgPrice = toInt(row.loc['AvgPrice'])  # 平均票价
     obj.avpPeoPle = toInt(row.loc['AvpPeoPle'])  # 场均人次
     obj.boxOffice = toFloat(row.loc['BoxOffice'])  # 单日票房（万）
-    obj.boxOffice_Up = toInt(row.loc['BoxOffice_Up'])  # 环比变化 （ % ）
+    obj.boxOffice_Up = toFloat(row.loc['BoxOffice_Up'])  # 环比变化 （ % ）
     obj.iRank = toInt(row.loc['IRank'])  # 排名
     obj.movieDay = toInt(row.loc['MovieDay'])  # 上映天数
     obj.movieName = str(row.loc['MovieName'])[0:Model.TEXT_MAX_LENGTH]  # 影片名
@@ -34,11 +34,11 @@ class Model(Base):
     date = Column(Date, primary_key=True)
     avgPrice = Column(Integer)  # 平均票价
     avpPeoPle = Column(Integer)  # 场均人次
-    boxOffice = Column(Float)  # 单日票房（万）
-    boxOffice_Up = Column(Integer)  # 环比变化 （ % ）
+    boxOffice = Column(Float(53))  # 单日票房（万）
+    boxOffice_Up = Column(Float(53))  # 环比变化 （ % ）
     iRank = Column(Integer)  # 排名
     movieDay = Column(Integer)  # 上映天数
     movieName = Column(String(255), primary_key=True)  # 影片名
-    sumBoxOffice = Column(Float)  # 累计票房（万）
-    womIndex = Column(Float)  # 口碑指数
+    sumBoxOffice = Column(Float(53))  # 累计票房（万）
+    womIndex = Column(Float(53))  # 口碑指数
 

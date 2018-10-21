@@ -41,6 +41,6 @@ class Model(Base):
     year = Column(Integer)
     quarter = Column(Integer)
     report_date = Column(Date, primary_key=True)  # 发布日期
-    pre_eps = Column(Float)  # 上年同期每股收益
+    pre_eps = Column(Float(53))  # 上年同期每股收益
     range = Column(String(255))  # 业绩变动范围
 

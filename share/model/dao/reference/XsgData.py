@@ -40,6 +40,6 @@ class Model(Base):
     year = Column(Integer)
     month = Column(Integer)
     report_date = Column(Date, primary_key=True)  # 发布日期
-    count = Column(Float)  # 解禁数量（万股）
-    ratio = Column(Float)  # 占总盘比率%
+    count = Column(Float(53))  # 解禁数量（万股）
+    ratio = Column(Float(53))  # 占总盘比率%
 

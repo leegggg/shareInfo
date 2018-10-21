@@ -37,12 +37,12 @@ class Model(Base):
 
     # 表的结构:
     date = Column(Date, primary_key=True)  # 变动日期
-    rON = Column(Float)  # 隔夜拆放利率
-    r1W = Column(Float)  # 1周拆放利率
-    r2W = Column(Float)  # 2周拆放利率
-    r1M = Column(Float)  # 1个月拆放利率
-    r3M = Column(Float)  # 3个月拆放利率
-    r6M = Column(Float)  # 6个月拆放利率
-    r9M = Column(Float)  # 9个月拆放利率
-    r1Y = Column(Float)  # 1年拆放利率
+    rON = Column(Float(53))  # 隔夜拆放利率
+    r1W = Column(Float(53))  # 1周拆放利率
+    r2W = Column(Float(53))  # 2周拆放利率
+    r1M = Column(Float(53))  # 1个月拆放利率
+    r3M = Column(Float(53))  # 3个月拆放利率
+    r6M = Column(Float(53))  # 6个月拆放利率
+    r9M = Column(Float(53))  # 9个月拆放利率
+    r1Y = Column(Float(53))  # 1年拆放利率
 

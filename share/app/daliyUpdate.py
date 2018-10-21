@@ -32,47 +32,48 @@ def main():
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
-    dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
+    dbclient = SqliteClient(base=Base, url=config.get('db_url'))
 
     # Update Reference
     logging.info("Daily Update Reference")
     import share.service.referenceService as referenceService
     try:
         referenceService.daily(con=dbclient)
-    except:
-        logging.warning("Failed Daily Update Reference")
+    except Exception as e:
+        logging.warning("Failed Daily Update Reference {}".format(str(e)))
 
     # Update classified
     logging.info("Daily Update classified")
     from share.service import classifiedService
     try:
         classifiedService.daily(con=dbclient)
-    except:
-        logging.warning("Failed Update classified")
+    except Exception as e:
+        logging.warning("Failed Update classified {}".format(str(e)))
+        raise
 
     # Update BoxOffice
     logging.info("Daily Update BoxOffice")
     from share.service import boxOfficeService
     try:
         boxOfficeService.daily(con=dbclient)
-    except:
-        logging.warning("Failed Update BoxOffice")
+    except Exception as e:
+        logging.warning("Failed Update BoxOffice {}".format(str(e)))
 
     # Update macro
     logging.info("Daily Update macro")
     from share.service import macroService
     try:
         macroService.daily(con=dbclient)
-    except:
-        logging.warning("Failed Daily Update macro")
+    except Exception as e:
+        logging.warning("Failed Daily Update macro {}".format(str(e)))
 
     # Update reports
     logging.info("Daily Update reports")
     from share.service import reportService
     try:
         reportService.daily(con=dbclient)
-    except:
-        logging.warning("Failed Update reports")
+    except Exception as e:
+        logging.warning("Failed Update reports {}".format(str(e)))
 
     # Update Index Klines
     logging.info("Daily Update Index Klines")
@@ -80,8 +81,8 @@ def main():
     try:
         codes = service.getAllIndexCodes()
         getKlines.getKLinesAsync(dbClient=dbclient, codes=codes, ktype='D', start=start, index=True, multiplier=2)
-    except:
-        logging.warning("Failed Update index Klines")
+    except Exception as e:
+        logging.warning("Failed Update index Klines {}".format(str(e)))
 
 
     # Update Klines

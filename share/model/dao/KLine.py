@@ -28,11 +28,11 @@ def TableCreator(tablename):
         code = Column(String(32), primary_key=True)  #  VDPP,
         ktype = Column(String(32), primary_key=True)  # VDPP,
         ts = Column(DateTime, primary_key=True)
-        open = Column(Float)  #  observation,
-        close = Column(Float)  #  observation,
-        high = Column(Float)  #  observation,
-        low = Column(Float)  #  observation,
-        volume = Column(Float)  #  observation,
+        open = Column(Float(53))  #  observation,
+        close = Column(Float(53))  #  observation,
+        high = Column(Float(53))  #  observation,
+        low = Column(Float(53))  #  observation,
+        volume = Column(Float(53))  #  observation,
 
         def __init__(self):
             pass

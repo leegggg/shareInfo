@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, Date, String
+from sqlalchemy import Column, Integer, Float, Date, String, BigInteger
 from share.model.dao import Base
 from share.util.numberUtil import toFloat, toInt
 from datetime import datetime
@@ -56,11 +56,11 @@ class Model(Base):
     date = Column(Date)  # 收集日期
     ipo_date = Column(Date, primary_key=True)  # 上网发行日期
     issue_date = Column(Date)  # 上市日期
-    amount = Column(Integer)  # 发行数量(万股)
-    markets = Column(Integer)  # 上网发行数量(万股)
-    price = Column(Float)  # 发行价格(元)
-    pe = Column(Float)  # 发行市盈率
-    limit = Column(Float)  # 个人申购上限(万股)
-    funds = Column(Float)  # 募集资金(亿元)
-    ballot = Column(Float)  # 网上中签率( %)
+    amount = Column(BigInteger)  # 发行数量(万股)
+    markets = Column(BigInteger)  # 上网发行数量(万股)
+    price = Column(Float(53))  # 发行价格(元)
+    pe = Column(Float(53))  # 发行市盈率
+    limit = Column(Float(53))  # 个人申购上限(万股)
+    funds = Column(Float(53))  # 募集资金(亿元)
+    ballot = Column(Float(53))  # 网上中签率( %)
 

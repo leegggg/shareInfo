@@ -30,6 +30,6 @@ class Model(Base):
     # 表的结构:
     year = Column(Integer, primary_key=True)
     month = Column(Integer, primary_key=True)  # 统计时间
-    cpi = Column(Float)  # CPI
+    cpi = Column(Float(53))  # CPI
 
 

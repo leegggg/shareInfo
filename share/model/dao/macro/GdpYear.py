@@ -31,15 +31,15 @@ class Model(Base):
 
     # 表的结构:
     year = Column(Integer, primary_key=True)
-    gdp = Column(Float)  # 国内生产总值(亿元)
-    pc_gdp = Column(Float)  # 人均国内生产总值(元)
-    gnp = Column(Float)  # 国民生产总值(亿元)
-    pi = Column(Float)  # 第一产业(亿元)
-    si = Column(Float)  # 第二产业(亿元)
-    industry = Column(Float)  # 工业(亿元)
-    cons_industry = Column(Float)  # 建筑业(亿元)
-    ti = Column(Float)  # 第三产业(亿元)
-    trans_industry = Column(Float)  # 交通运输仓储邮电通信业(亿元)
-    lbdy = Column(Float)  # 批发零售贸易及餐饮业(亿元)
+    gdp = Column(Float(53))  # 国内生产总值(亿元)
+    pc_gdp = Column(Float(53))  # 人均国内生产总值(元)
+    gnp = Column(Float(53))  # 国民生产总值(亿元)
+    pi = Column(Float(53))  # 第一产业(亿元)
+    si = Column(Float(53))  # 第二产业(亿元)
+    industry = Column(Float(53))  # 工业(亿元)
+    cons_industry = Column(Float(53))  # 建筑业(亿元)
+    ti = Column(Float(53))  # 第三产业(亿元)
+    trans_industry = Column(Float(53))  # 交通运输仓储邮电通信业(亿元)
+    lbdy = Column(Float(53))  # 批发零售贸易及餐饮业(亿元)
 
 

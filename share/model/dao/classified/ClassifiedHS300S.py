@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, Float, Date
 from share.model.dao import Base
 from dateutil.parser import parse
+from share.util.numberUtil import toFloat
 import datetime
 
 def rowToORM(row):
@@ -8,7 +9,7 @@ def rowToORM(row):
     obj.code = row.loc['code']
     obj.name = row.loc['name']
     obj.date = datetime.datetime.fromtimestamp(row.loc['date'].value / 1000000000)
-    obj.weight = row.loc['weight']
+    obj.weight = toFloat(row.loc['weight'])
     return obj
 
 

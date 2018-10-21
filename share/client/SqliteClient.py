@@ -1,7 +1,8 @@
 from . import DBClient as DBClient
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy.exc import IntegrityError
+import logging
 
 class SqliteClient(DBClient.DBClient):
 
@@ -26,22 +27,29 @@ class SqliteClient(DBClient.DBClient):
             session.close()
         return
 
-    def save(self, orm):
+    def save(self, orm, onDup: str='ignore'):
         session = self.DBSession()
         try:
             session.merge(orm)
             session.commit()
-        except:
+        except IntegrityError as e:
+            logging.log(1, "Skip a record with {}".format(str(e)))
+        except Exception:
             raise
         finally:
             session.close()
         return
 
-    def save_all(self, orms):
+    def save_all(self, orms, oneByOne=True):
+        if oneByOne is True:
+            for orm in orms:
+                self.save(orm)
+            return
+
         session = self.DBSession()
         try:
             for orm in orms:
-                session.merge(orm)
+                session.add(orm)
             session.commit()
         except:
             raise

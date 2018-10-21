@@ -27,11 +27,11 @@ class Model(Base):
 
     # 表的结构:
     year = Column(Integer, primary_key=True)
-    end_for = Column(Float)  # 最终消费支出贡献率( %)
-    for_rate = Column(Float)  # 最终消费支出拉动(百分点)
-    asset_for = Column(Float)  # 资本形成总额贡献率( %)
-    asset_rate = Column(Float)  # 资本形成总额拉动(百分点)
-    goods_for = Column(Float)  # 货物和服务净出口贡献率( %)
-    goods_rate = Column(Float)  # 货物和服务净出口拉动(百分点)
+    end_for = Column(Float(53))  # 最终消费支出贡献率( %)
+    for_rate = Column(Float(53))  # 最终消费支出拉动(百分点)
+    asset_for = Column(Float(53))  # 资本形成总额贡献率( %)
+    asset_rate = Column(Float(53))  # 资本形成总额拉动(百分点)
+    goods_for = Column(Float(53))  # 货物和服务净出口贡献率( %)
+    goods_rate = Column(Float(53))  # 货物和服务净出口拉动(百分点)
 
 

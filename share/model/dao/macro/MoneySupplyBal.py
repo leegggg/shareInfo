@@ -29,13 +29,13 @@ class Model(Base):
 
     # 表的结构:
     year = Column(Integer, primary_key=True)
-    m2 = Column(Float)  # 货币和准货币(亿元)
-    m1 = Column(Float)  # 货币(亿元)
-    m0 = Column(Float)  # 流通中现金(亿元)
-    cd = Column(Float)  # 活期存款(亿元)
-    qm = Column(Float)  # 准货币(亿元)
-    ftd = Column(Float)  # 定期存款(亿元)
-    sd = Column(Float)  # 储蓄存款(亿元)
-    rests = Column(Float)  # 其他存款(亿元)
+    m2 = Column(Float(53))  # 货币和准货币(亿元)
+    m1 = Column(Float(53))  # 货币(亿元)
+    m0 = Column(Float(53))  # 流通中现金(亿元)
+    cd = Column(Float(53))  # 活期存款(亿元)
+    qm = Column(Float(53))  # 准货币(亿元)
+    ftd = Column(Float(53))  # 定期存款(亿元)
+    sd = Column(Float(53))  # 储蓄存款(亿元)
+    rests = Column(Float(53))  # 其他存款(亿元)
 
 

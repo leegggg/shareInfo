@@ -33,14 +33,14 @@ class Model(Base):
 
     # 表的结构:
     date = Column(Date, primary_key=True)
-    attendance = Column(Float)  # 上座率
-    avgPeople = Column(Float)  # 场均人次
+    attendance = Column(Float(53))  # 上座率
+    avgPeople = Column(Float(53))  # 场均人次
     cinemaName = Column(String(255), primary_key=True)  # 影院名称
     iRank = Column(Integer)  # 排名
     todayAudienceCount = Column(Integer)  # 当日观众人数
-    todayBox = Column(Float)  # 当日票房
-    todayShowCount = Column(Float)  # 当日场次
-    price = Column(Float)  # 场均票价（元）
+    todayBox = Column(Float(53))  # 当日票房
+    todayShowCount = Column(Float(53))  # 当日场次
+    price = Column(Float(53))  # 场均票价（元）
 
 
 

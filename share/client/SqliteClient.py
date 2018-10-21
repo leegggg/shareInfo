@@ -33,7 +33,7 @@ class SqliteClient(DBClient.DBClient):
             session.merge(orm)
             session.commit()
         except IntegrityError as e:
-            logging.log(1, "Skip a record with {}".format(str(e)))
+            logging.log(logging.DEBUG, "Skip a record with {}".format(str(e)))
         except Exception:
             raise
         finally:

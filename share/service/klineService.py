@@ -135,7 +135,7 @@ def getKLinesAsync(dbClient, codes, ktype='D', start=None, index=False, multipli
     # Finish all data left
     logging.debug("write joined {} data left in MQ".format(klineQueue.qsize()))
     klineQueue.put(None)
-    writeAllObjsToDB(con=dbClient,q=klineQueue,timeout=0.1)
+    writeAllObjsToDB(con=dbClient.url, q=klineQueue,timeout=0.1)
 
     return
 

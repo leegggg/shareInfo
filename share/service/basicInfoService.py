@@ -13,6 +13,6 @@ def getBasicInfo(con, package, fun, clean=True):
     Base.metadata.create_all(con.engine)
     if clean is True and len(res)>0:
         con.delete_all(res[0].__class__)
-    con.save_all(res,oneByOne=True)
+    con.save_all(res)
     return
 

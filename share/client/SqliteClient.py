@@ -40,13 +40,14 @@ class SqliteClient(DBClient.DBClient):
             session.close()
         return
 
-    def save_all(self, orms, oneByOne=True):
+    def save_all(self, orms, oneByOne=False):
         if oneByOne is True:
             for orm in orms:
                 self.save(orm)
             return
 
         session = self.DBSession()
+
         try:
             for orm in orms:
                 session.merge(orm)
@@ -61,3 +62,4 @@ class SqliteClient(DBClient.DBClient):
         finally:
             session.close()
         return
+

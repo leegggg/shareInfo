@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def toFloat(string):
     res = None
     try:
@@ -26,3 +28,10 @@ def toInt(string):
             res = None
 
     return res
+
+
+def dateTimeToTsStr(dt: datetime) -> str:
+    import struct
+    import base64
+    bytesTs = struct.pack('<d', dt.timestamp())
+    return base64.b64encode(bytesTs).decode('UTF-8')

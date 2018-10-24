@@ -1,4 +1,5 @@
 import sys
+from share.util import config as Config
 
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
@@ -10,12 +11,20 @@ def main():
     from share.client.SqliteClient import SqliteClient
     from share.model.dao import Base
 
+    config = Config.getConfig()
 
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(config.get('log_level'))
+
+    logging.info(config)
 
     # dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
-    dbclient = SqliteClient(base=Base, url='mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt')
+    dbclient = SqliteClient(base=Base, url=config.get("db_url"))
 
     import share.service.basicInfoService as service
     import tushare as ts
@@ -31,6 +40,8 @@ def main():
     # Update HS300 classified
     import share.model.dao.classified.ClassifiedHS300S as package
     service.getBasicInfo(con=dbclient, package=package, fun=ts.get_hs300s, clean=False)
+
+    return
 
     # Update SZ50 classified
     import share.model.dao.classified.ClassifiedSZ50s as package

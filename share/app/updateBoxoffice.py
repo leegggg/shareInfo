@@ -2,6 +2,7 @@ import sys
 import logging
 from datetime import datetime
 from datetime import timedelta
+from share.util import config as Config
 
 
 sys.path.insert(0, '.')
@@ -13,22 +14,30 @@ def main():
     from share.client.SqliteClient import SqliteClient
     from share.model.dao import Base
 
+    config = Config.getConfig()
     logger = logging.getLogger()
     handler = logging.StreamHandler()
     formatter = logging.Formatter(
         '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
-    dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
+    logger.setLevel(config.get('log_level'))
+    logging.info(config)
+    dbclient = SqliteClient(base=Base, url=config.get("db_url"))
 
     import share.service.boxOfficeService as service
     import tushare as ts
     from share.util.dateModel import YearQuarter
 
     # service.getReports(con=dbclient,fromYearQuarter=YearQuarter.fromDate().__last__())
-    service.updateRealtimeBoxoffice(con=dbclient)
+
+    # from share.service import boxOfficeService
+    # boxOfficeService.daily(con=dbclient)
+    service.daily(con=dbclient)
+    # return
+
     service.updateDayBoxoffice(con=dbclient, date=datetime.now())
+    service.updateRealtimeBoxoffice(con=dbclient)
 
     date = datetime(year=2010,month=3,day=1)
     while date.timestamp() < datetime.now().timestamp():

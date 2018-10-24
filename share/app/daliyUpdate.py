@@ -16,22 +16,10 @@ def main():
     import share.service.klineService as getKlines
     from datetime import timedelta
     from datetime import datetime
-    import json
-    # import tushare as ts
-
-    config = {
-        'start_r': True,
-        'start_days_r': 45,
-        'thread_multi': 4,
-        'db_url': 'mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt',
-        'log_level': 10
-    }
-
-
+    from share.util.config import getConfig
 
     # Load config
-    with open('config.json') as json_data:
-        config = json.load(json_data)
+    config = getConfig()
 
     logger = logging.getLogger()
     handler = logging.StreamHandler()
@@ -59,7 +47,6 @@ def main():
         classifiedService.daily(con=dbclient)
     except Exception as e:
         logging.warning("Failed Update classified {}".format(str(e)))
-        raise
 
     # Update BoxOffice
     logging.info("Daily Update BoxOffice")

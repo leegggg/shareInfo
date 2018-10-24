@@ -41,8 +41,6 @@ def main():
     import share.model.dao.classified.ClassifiedHS300S as package
     service.getBasicInfo(con=dbclient, package=package, fun=ts.get_hs300s, clean=False)
 
-    return
-
     # Update SZ50 classified
     import share.model.dao.classified.ClassifiedSZ50s as package
     service.getBasicInfo(con=dbclient, package=package, fun=ts.get_sz50s)

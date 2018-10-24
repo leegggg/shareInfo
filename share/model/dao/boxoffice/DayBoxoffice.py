@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, Date, String,DateTime
 from share.model.dao import Base
-from share.util.numberUtil import toFloat, toInt
+from share.util.numberUtil import toFloat, toInt, dateTimeToTsStr
 import logging
 from datetime import datetime
 
@@ -18,6 +18,7 @@ def rowToORM(row, date: datetime):
     obj.movieName = str(row.loc['MovieName'])[0:Model.TEXT_MAX_LENGTH]  # 影片名
     obj.sumBoxOffice = toFloat(row.loc['SumBoxOffice'])  # 累计票房（万）
     obj.womIndex = toFloat(row.loc['WomIndex'])  # 口碑指数
+    obj.pk = "{name}_{date}".format(name=obj.movieName,date=dateTimeToTsStr(date))
 
     return obj
 
@@ -31,14 +32,15 @@ class Model(Base):
         pass
 
     # 表的结构:
-    date = Column(Date, primary_key=True)
+    pk = Column(String(265), primary_key=True)
+    date = Column(Date)
     avgPrice = Column(Integer)  # 平均票价
     avpPeoPle = Column(Integer)  # 场均人次
     boxOffice = Column(Float(53))  # 单日票房（万）
     boxOffice_Up = Column(Float(53))  # 环比变化 （ % ）
     iRank = Column(Integer)  # 排名
     movieDay = Column(Integer)  # 上映天数
-    movieName = Column(String(255), primary_key=True)  # 影片名
+    movieName = Column(String(255))  # 影片名
     sumBoxOffice = Column(Float(53))  # 累计票房（万）
     womIndex = Column(Float(53))  # 口碑指数
 

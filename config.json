@@ -1,6 +1,7 @@
 {
   "log_level": 10,
   "_db_url": "mysql+pymysql://root:dbrootpassword@localhost/share-fvt",
-  "db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-dev",
+  "_1db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-dev",
+  "db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt",
   "_":"_"
 }

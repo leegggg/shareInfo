@@ -19,7 +19,7 @@ def rowToORM(row):
     try:
         obj.ipo_date = parse(tsString)
     except:
-        logging.warning("Fail to get date from {} from {}. Using {} as Fallback".
+        logging.info("Fail to get date from {} from {}. Using {} as Fallback".
                         format(__name__, tsString, obj.ipo_date))
 
     tsString = str(row.loc['issue_date'])
@@ -27,7 +27,7 @@ def rowToORM(row):
     try:
         obj.issue_date = parse(tsString)
     except:
-        logging.warning("Fail to get date from {} from {}. Using {} as Fallback".
+        logging.info("Fail to get date from {} from {}. Using {} as Fallback".
                         format(__name__, tsString, obj.issue_date))
 
     if obj.code is None or obj.ipo_date is None:

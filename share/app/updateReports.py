@@ -8,11 +8,21 @@ def main():
     import logging
     from share.client.SqliteClient import SqliteClient
     from share.model.dao import Base
+    from share.util.config import getConfig
+
+    # Load config
+    config = getConfig()
 
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(config.get('log_level'))
 
-    dbclient = SqliteClient(base=Base, url='sqlite:///./share.db')
+    logging.info(str(config))
+    dbclient = SqliteClient(base=Base, url=config.get('db_url'))
 
     import share.service.reportService as service
     import tushare as ts

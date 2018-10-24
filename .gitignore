@@ -1,6 +1,7 @@
 *.db*
 local/
 .DS_Store
+config.json
 
 #idea
 .idea

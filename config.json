@@ -5,5 +5,5 @@
   "_2db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt",
   "db_url": "mysql+pymysql://root:dbrootpassword@localhost/share-fvt",
   "_":"_",
-  "journald": true
+  "journald": true 
 }

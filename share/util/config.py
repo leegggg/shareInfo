@@ -6,8 +6,9 @@ def getDefaultConfig():
         "start_r": True,
         "start_days_r": 15,
         "thread_multi": 4,
-        "db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt",
-        "log_level": 20
+        "db_url": "sqlite:///./resource.db",
+        "log_level": 20,
+        "journald": False
     }
     return defaultConfig
 

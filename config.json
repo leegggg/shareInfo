@@ -2,6 +2,8 @@
   "log_level": 10,
   "_db_url": "mysql+pymysql://root:dbrootpassword@localhost/share-fvt",
   "_1db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-dev",
-  "db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt",
-  "_":"_"
+  "_2db_url": "mysql+pymysql://root:dbrootpassword@ada.lan.linyz.net/share-fvt",
+  "db_url": "mysql+pymysql://root:dbrootpassword@localhost/share-fvt",
+  "_":"_",
+  "journald": true
 }

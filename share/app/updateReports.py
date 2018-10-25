@@ -9,18 +9,12 @@ def main():
     from share.client.SqliteClient import SqliteClient
     from share.model.dao import Base
     from share.util.config import getConfig
+    from share.util import log
+    from share.util.config import getConfig
 
     # Load config
     config = getConfig()
-
-    logger = logging.getLogger()
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter(
-        '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(config.get('log_level'))
-
+    logger = log.getLogger(config)
     logging.info(str(config))
     dbclient = SqliteClient(base=Base, url=config.get('db_url'))
 

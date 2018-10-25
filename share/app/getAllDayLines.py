@@ -12,31 +12,26 @@ def main():
     from datetime import timedelta
     from datetime import datetime
     from share.util.config import getConfig
+    from share.util import log
 
     # Load config
     config = getConfig()
-
-    logger = logging.getLogger()
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter(
-        '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(config.get('log_level'))
-
+    logger = log.getLogger(config)
     logging.info(str(config))
     dbclient = SqliteClient(base=Base, url=config.get('db_url'))
 
-    # Update Index Klines
-    codes = service.getAllIndexCodes()
-    start = datetime(year=1990,month=1,day=1)
-    getKlines.getKLinesAsync(dbclient, codes=codes, ktype='D', start=start, index=True)
 
     # Update Klines
     codes = service.getAllCodes(dbclient)
     start = datetime(year=1990,month=1,day=1)
     getKlines.getKLines(dbclient, codes=codes, ktype='D', start=start)
     getKlines.getKLinesAsync(dbclient,codes=codes,ktype='D',start=start)
+
+    # # Update Index Klines
+    # codes = service.getAllIndexCodes()
+    # start = datetime(year=1990,month=1,day=1)
+    # getKlines.getKLinesAsync(dbclient, codes=codes, ktype='D', start=start, index=True)
+
 
 
     return

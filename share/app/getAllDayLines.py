@@ -24,7 +24,7 @@ def main():
     # Update Klines
     codes = service.getAllCodes(dbclient)
     start = datetime(year=1990,month=1,day=1)
-    getKlines.getKLines(dbclient, codes=codes, ktype='D', start=start)
+    # getKlines.getKLines(dbclient, codes=codes, ktype='D', start=start)
     getKlines.getKLinesAsync(dbclient,codes=codes,ktype='D',start=start)
 
     # # Update Index Klines

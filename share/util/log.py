@@ -7,8 +7,8 @@ def getLogger(config: dict=None):
     handler = logging.StreamHandler()
     if isUseJournald:
         try:
-            from systemd.journal import JournalHandler
-            handler = JournalHandler()
+            from systemd.journal import JournaldLogHandler
+            handler = JournaldLogHandler()
         except:
             print("systemd not installed giveup using journald. Using StreamHandler stdout/stderr as fallback.")
             pass

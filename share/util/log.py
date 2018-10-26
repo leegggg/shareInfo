@@ -1,5 +1,5 @@
 import logging
-
+import sys
 
 def getLogger(config: dict=None):
 
@@ -13,7 +13,7 @@ def getLogger(config: dict=None):
             print("systemd not installed giveup using journald. Using StreamHandler stdout/stderr as fallback.")
             pass
 
-    logger = logging.getLogger()
+    logger = logging.getLogger(sys.argv[0])
     formatter = logging.Formatter(
         '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
     handler.setFormatter(formatter)

@@ -32,7 +32,7 @@ def getKLines(dbClient, codes, ktype='D', start=None):
     return
 
 
-def downloadKlineToQueue(q: Queue, code: str, ktype: str='D', index: bool=False, start=None):
+def downloadKlineToQueue(q: Queue, code: str, ktype: str='D', index: bool=False, start=None, timeout: int=300):
     if start is None:
         start = datetime.now() - timedelta(days=90)
     start = start.strftime('%Y-%m-%d')
@@ -42,7 +42,7 @@ def downloadKlineToQueue(q: Queue, code: str, ktype: str='D', index: bool=False,
         code = "INDEX_{}".format(code)
     res = {'code': code, 'ktype': ktype, 'df': klines}
     if res is not None:
-        q.put(res)
+        q.put(res,timeout=timeout)
 
     return
 
@@ -96,10 +96,11 @@ def getKLinesAsync(dbClient, codes, ktype='D', start=None, index=False, multipli
     logging.debug("getKLinesAsync length: {}, type: {}, start: {}".format(
         len(codes), ktype, start.strftime("%Y-%m-%d")))
 
-    threads = multiplier * multiprocessing.cpu_count() * 2
+    threads = multiplier * multiprocessing.cpu_count()
+    queueSlot = threads * 5
 
     m = multiprocessing.Manager()
-    klineQueue :Queue = m.Queue(maxsize=len(codes)+10)
+    klineQueue :Queue = m.Queue(maxsize=queueSlot)
 
     workerPool = pool.Pool(threads)
 

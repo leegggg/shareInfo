@@ -9,7 +9,9 @@ def getBasicInfo(con, package, fun, clean=True):
     df = fun()
     res = []
     for _, row in df.iterrows():
-        res.append(package.rowToORM(row))
+        r = package.rowToORM(row)
+        if r is not None:
+            res.append(r)
     Base.metadata.create_all(con.engine)
     if clean is True and len(res)>0:
         con.delete_all(res[0].__class__)

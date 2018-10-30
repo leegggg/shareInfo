@@ -1,26 +1,27 @@
 from sqlalchemy import Column, String, Float, Date
 from share.model.dao import Base
 from datetime import datetime
+from share.util.numberUtil import toFloat, toStr
 
 
 def rowToORM(row,code):
 
     obj = Model()
     obj.code = code  # VDPP,
-    obj.name = row.loc['name']  # observation,
-    obj.industry = row.loc['industry']
-    obj.area = row.loc['area']
-    obj.pe = row.loc['pe']
-    obj.outstanding = row.loc['outstanding']
-    obj.totals = row.loc['totals']
-    obj.totalAssets = row.loc['totalAssets']
-    obj.liquidAssets = row.loc['liquidAssets']  # 流动资产
-    obj.fixedAssets = row.loc['fixedAssets']  # 固定资产
-    obj.reserved = row.loc['reserved']  # 公积金
-    obj.reservedPerShare = row.loc['reservedPerShare']  # 每股公积金
-    obj.esp = row.loc['esp']  # 每股收益
-    obj.bvps = row.loc['bvps']  # 每股净资
-    obj.pb = row.loc['pb']  # 市净率
+    obj.name = toStr(row.loc['name'])  # observation,
+    obj.industry = toStr(row.loc['industry'])
+    obj.area = toStr(row.loc['area'])
+    obj.pe = toFloat(row.loc['pe'])
+    obj.outstanding = toFloat(row.loc['outstanding'])
+    obj.totals = toFloat(row.loc['totals'])
+    obj.totalAssets = toFloat(row.loc['totalAssets'])
+    obj.liquidAssets = toFloat(row.loc['liquidAssets'])  # 流动资产
+    obj.fixedAssets = toFloat(row.loc['fixedAssets'])  # 固定资产
+    obj.reserved = toFloat(row.loc['reserved'])  # 公积金
+    obj.reservedPerShare = toFloat(row.loc['reservedPerShare'])  # 每股公积金
+    obj.esp = toFloat(row.loc['esp'])  # 每股收益
+    obj.bvps = toFloat(row.loc['bvps'])  # 每股净资
+    obj.pb = toFloat(row.loc['pb'])  # 市净率
     tsString = str(row.loc['timeToMarket'])   # 上市日期
     if len(tsString) < 8:
         obj.timeToMarket = None
@@ -28,13 +29,13 @@ def rowToORM(row,code):
         year, mon, day = int(tsString[:4]), int(tsString[4:6]), int(tsString[6:])
         datetime_object = datetime(year, mon, day)
         obj.timeToMarket = datetime_object
-    obj.undp = row.loc['undp']  # 未分利润
-    obj.perundp = row.loc['perundp']  # 每股未分配
-    obj.rev = row.loc['rev']
-    obj.profit = row.loc['profit']
-    obj.gpr = row.loc['gpr']
-    obj.npr = row.loc['npr']
-    obj.holders = row.loc['holders']  # 股东人数
+    obj.undp = toFloat(row.loc['undp'])  # 未分利润
+    obj.perundp = toFloat(row.loc['perundp'])  # 每股未分配
+    obj.rev = toFloat(row.loc['rev'])
+    obj.profit = toFloat(row.loc['profit'])
+    obj.gpr = toFloat(row.loc['gpr'])
+    obj.npr = toFloat(row.loc['npr'])
+    obj.holders = toFloat(row.loc['holders'])  # 股东人数
     return obj
 
 

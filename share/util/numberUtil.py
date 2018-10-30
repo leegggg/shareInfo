@@ -30,6 +30,13 @@ def toInt(string):
     return res
 
 
+def toStr(string):
+    res = str(string)
+    if string != string:
+        res = None
+    return res
+
+
 def dateTimeToTsStr(dt: datetime) -> str:
     import struct
     import base64

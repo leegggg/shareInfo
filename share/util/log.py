@@ -8,12 +8,12 @@ def getLogger(config: dict=None):
     if isUseJournald:
         try:
             from systemd.journal import JournaldLogHandler
-            handler = JournaldLogHandler()
+            handler = JournaldLogHandler(SYSLOG_IDENTIFIER=sys.argv[0])
         except:
             print("systemd not installed giveup using journald. Using StreamHandler stdout/stderr as fallback.")
             pass
 
-    logger = logging.getLogger(sys.argv[0])
+    logger = logging.getLogger()
     formatter = logging.Formatter(
         '%(asctime)s - %(levelname)s %(filename)s(%(lineno)d) %(funcName)s(): \t %(message)s')
     handler.setFormatter(formatter)

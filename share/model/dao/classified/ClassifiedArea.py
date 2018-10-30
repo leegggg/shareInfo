@@ -5,9 +5,11 @@ from share.model.dao import Base
 
 def rowToORM(row):
     obj = ClassifiedArea()
-    obj.code = row.loc['code']
-    obj.name = row.loc['name']
+    obj.code = str(row.loc['code'])
+    obj.name = str(row.loc['name'])
     obj.area = row.loc['area']
+    if obj.area != obj.area:
+        obj.area = None
     return obj
 
 

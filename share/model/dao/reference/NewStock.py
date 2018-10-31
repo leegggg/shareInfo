@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, Date, String, BigInteger
 from share.model.dao import Base
-from share.util.numberUtil import toFloat, toInt
+from share.util.numberUtil import toFloat, toInt, toStr
 from datetime import datetime
 from dateutil.parser import parse
 import logging
@@ -9,8 +9,8 @@ import logging
 def rowToORM(row):
     obj = Model()
 
-    obj.code = str(row.loc['code'])  # 股票代码
-    obj.name = str(row.loc['name'])  # 股票名称
+    obj.code = toStr(row.loc['code'])  # 股票代码
+    obj.name = toStr(row.loc['name'])  # 股票名称
 
     obj.date = datetime.now()
 

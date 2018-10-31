@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, Date, String, BigInteger
 from share.model.dao import Base
-from share.util.numberUtil import toFloat, toInt
+from share.util.numberUtil import toFloat, toInt, toStr
 from dateutil.parser import parse
 import logging
 
@@ -8,7 +8,7 @@ import logging
 def rowToORM(row):
     obj = Model()
 
-    tsString = str(row.loc['opDate'])
+    tsString = toStr(row.loc['opDate'])
     obj.opDate = None
     try:
         obj.opDate = parse(tsString)

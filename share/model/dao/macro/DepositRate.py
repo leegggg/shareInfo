@@ -3,7 +3,7 @@ from share.model.dao import Base
 from datetime import datetime
 from dateutil.parser import parse
 import logging
-from share.util.numberUtil import toFloat
+from share.util.numberUtil import toFloat, toStr
 
 def rowToORM(row):
     obj = Model()
@@ -15,7 +15,7 @@ def rowToORM(row):
         logging.warning("Fail to get date from {} from {}. Using {} as Fallback".
                         format(__name__, tsString, obj.exe_date))
 
-    obj.deposit_type = row.loc['deposit_type'][0:Model.TEXT_MAX_LENGTH]
+    obj.deposit_type = toStr(row.loc['deposit_type'][0:Model.TEXT_MAX_LENGTH])
     obj.rate = toFloat(row.loc['rate'])
     return obj
 

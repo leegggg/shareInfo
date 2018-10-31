@@ -1,15 +1,14 @@
 from sqlalchemy import Column, String, create_engine, Integer, Float, Text, Date
 from sqlalchemy.orm import sessionmaker
 from share.model.dao import Base
+from share.util.numberUtil import toStr
 
 
 def rowToORM(row):
     obj = ClassifiedArea()
-    obj.code = str(row.loc['code'])
-    obj.name = str(row.loc['name'])
-    obj.area = row.loc['area']
-    if obj.area != obj.area:
-        obj.area = None
+    obj.code = toStr(row.loc['code'])
+    obj.name = toStr(row.loc['name'])
+    obj.area = toStr(row.loc['area'])
     return obj
 
 

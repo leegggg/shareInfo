@@ -1,18 +1,18 @@
 from sqlalchemy import Column, String, create_engine, Integer, Float, Text, Date
 from share.model.dao import Base
 from dateutil.parser import parse
-from share.util.numberUtil import toFloat
+from share.util.numberUtil import toFloat, toStr
 import logging
 import datetime
 from datetime import timedelta, datetime
 
+
 def rowToORM(row, year, quarter):
     obj = ReportMain()
-    obj.code = row.loc['code']  # 代码
-    obj.name = row.loc['name']  # 名称
+    obj.code = toStr(row.loc['code'])  # 代码
+    obj.name = toStr(row.loc['name'])  # 名称
     obj.year = year  # year
     obj.quarter = quarter  # quarter
-
 
     tsString = "{:04d}-{:s}".format(year, row.loc['report_date'])
     if quarter >= 4:

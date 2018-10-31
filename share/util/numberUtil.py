@@ -8,7 +8,7 @@ def toFloat(string):
         pass
 
     # Nan
-    if not res is None:
+    if res is not None:
         if not (res <= 0 or res >= 0):
             res = None
 
@@ -30,9 +30,9 @@ def toInt(string):
     return res
 
 
-def toStr(string):
-    res = str(string)
-    if string != string:
+def toStr(obj) -> str:
+    res = str(obj)
+    if obj != obj:
         res = None
     return res
 

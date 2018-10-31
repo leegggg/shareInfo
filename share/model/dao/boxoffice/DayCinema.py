@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, Date, String,DateTime
 from share.model.dao import Base
-from share.util.numberUtil import toFloat, toInt, dateTimeToTsStr
+from share.util.numberUtil import toFloat, toInt, dateTimeToTsStr, toStr
 from dateutil.parser import parse
 from datetime import datetime
 import logging
@@ -11,7 +11,7 @@ def rowToORM(row, date:datetime):
 
     obj.attendance = toFloat(row.loc['Attendance'])  # 上座率
     obj.avgPeople = toFloat(row.loc['AvgPeople'])  # 场均人次
-    obj.cinemaName = str(row.loc['CinemaName'])[0:Model.TEXT_MAX_LENGTH]  # 影院名称
+    obj.cinemaName = toStr(row.loc['CinemaName'])[0:Model.TEXT_MAX_LENGTH]  # 影院名称
     obj.iRank = toFloat(row.loc['RowNum'])  # 排名
     obj.todayAudienceCount = toFloat(row.loc['TodayAudienceCount'])  # 当日观众人数
     obj.todayBox = toFloat(row.loc['TodayBox'])  # 当日票房

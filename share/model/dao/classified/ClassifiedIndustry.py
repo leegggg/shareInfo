@@ -1,12 +1,13 @@
 from sqlalchemy import Column, String
 from share.model.dao import Base
+from share.util.numberUtil import toStr
 
 
 def rowToORM(row):
     obj = ClassifiedIndustry()
-    obj.code = row.loc['code']
-    obj.name = row.loc['name']
-    obj.c_name = row.loc['c_name']
+    obj.code = toStr(row.loc['code'])
+    obj.name = toStr(row.loc['name'])
+    obj.c_name = toStr(row.loc['c_name'])
     return obj
 
 

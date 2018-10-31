@@ -1,15 +1,16 @@
 from sqlalchemy import Column, Integer, Float, Date, String
 from share.model.dao import Base
-from share.util.numberUtil import toFloat
+from share.util.numberUtil import toFloat, toStr
 from dateutil.parser import parse
 import logging
+
 
 def rowToORM(row,year,quarter):
     obj = Model()
 
-    obj.code = str(row.loc['code'])  # 股票代码
-    obj.name = str(row.loc['name'])  # 股票名称
-    obj.type = str(row.loc['type'])
+    obj.code = toStr(row.loc['code'])  # 股票代码
+    obj.name = toStr(row.loc['name'])  # 股票名称
+    obj.type = toStr(row.loc['type'])
 
     obj.year = int(year)  # 分配年份
     obj.quarter = int(quarter)
@@ -23,7 +24,7 @@ def rowToORM(row,year,quarter):
                         format(__name__, tsString, obj.report_date))
 
     obj.pre_eps = toFloat(row.loc['pre_eps'])  # 分红金额（每10股）
-    obj.range = str(row.loc['range'])[0:255]  # 转增和送股数（每10股）
+    obj.range = toStr(row.loc['range'])[0:255]  # 转增和送股数（每10股）
     return obj
 
 

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, Date, String
 from share.model.dao import Base
-from share.util.numberUtil import toFloat, toInt
+from share.util.numberUtil import toFloat, toInt, toStr
 from dateutil.parser import parse
 import logging
 
@@ -8,8 +8,8 @@ import logging
 def rowToORM(row,year,quarter):
     obj = Model()
 
-    obj.code = str(row.loc['code'])  # 股票代码
-    obj.name = str(row.loc['name'])  # 股票名称
+    obj.code = toStr(row.loc['code'])  # 股票代码
+    obj.name = toStr(row.loc['name'])  # 股票名称
 
     obj.year = int(year)  # 分配年份
     obj.quarter = int(quarter)

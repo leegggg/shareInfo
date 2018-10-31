@@ -1,11 +1,13 @@
 from sqlalchemy import Column, String, Float, Date
 from share.model.dao import Base
 from dateutil.parser import parse
+from share.util.numberUtil import toStr
+
 
 def rowToORM(row):
     obj = ClassifiedSt()
-    obj.code = row.loc['code']
-    obj.name = row.loc['name']
+    obj.code = toStr(row.loc['code'])
+    obj.name = toStr(row.loc['name'])
     obj.oDate = row.loc['oDate']
     obj.tDate = row.loc['tDate']
     return obj

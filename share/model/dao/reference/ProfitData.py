@@ -1,14 +1,14 @@
 from sqlalchemy import Column, Integer, Float, Date, String
 from share.model.dao import Base
-from share.util.numberUtil import toFloat
+from share.util.numberUtil import toFloat, toStr
 from dateutil.parser import parse
 import logging
 
 def rowToORM(row):
     obj = Model()
 
-    obj.code = str(row.loc['code'])  # 股票代码
-    obj.name = str(row.loc['name'])  # 股票名称
+    obj.code = toStr(row.loc['code'])  # 股票代码
+    obj.name = toStr(row.loc['name'])  # 股票名称
     obj.year = int(row.loc['year'])  # 分配年份
 
     tsString = str(row.loc['report_date'])

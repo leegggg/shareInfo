@@ -1,13 +1,14 @@
 from sqlalchemy import Column, String, Float, Date
 from share.model.dao import Base
 from dateutil.parser import parse
-from share.util.numberUtil import toFloat, dateTimeToTsStr
+from share.util.numberUtil import toFloat, dateTimeToTsStr, toStr
 import datetime
+
 
 def rowToORM(row):
     obj = ClassifiedSt()
-    obj.code = row.loc['code']
-    obj.name = row.loc['name']
+    obj.code = toStr(row.loc['code'])
+    obj.name = toStr(row.loc['name'])
     ts = datetime.datetime.fromtimestamp(row.loc['date'].value / 1000000000)
     obj.date = ts.date()
     obj.weight = toFloat(row.loc['weight'])

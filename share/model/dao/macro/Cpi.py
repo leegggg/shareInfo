@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, Float, Date
 from share.model.dao import Base
-from share.util.numberUtil import toFloat
+from share.util.numberUtil import toFloat, toStr
 import logging
 
 def rowToORM(row):
     obj = Model()
-    tsString = str(row.loc['month'])
+    tsString = toStr(row.loc['month'])
     strs = tsString.split('.')
     if len(strs) < 2:
         obj.year = None

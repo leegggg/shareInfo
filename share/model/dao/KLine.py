@@ -1,12 +1,12 @@
 from sqlalchemy import Column, String, Float, DateTime
 from dateutil.parser import parse
 from share.model.dao import Base
-
+from share.util.numberUtil import toStr
 
 
 def rowToORM(row, tablename, ktype):
     obj = TableCreator(tablename)()
-    obj.code = row.loc['code']
+    obj.code = toStr(row.loc['code'])
     obj.ktype = str(ktype)
     tsString = row.loc['date']
     datetime_object = parse(tsString)

@@ -1,7 +1,7 @@
 from . import DBClient as DBClient
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError,OperationalError
 import logging
 
 class SqliteClient(DBClient.DBClient):
@@ -50,7 +50,11 @@ class SqliteClient(DBClient.DBClient):
 
         try:
             for orm in orms:
-                session.merge(orm)
+                try:
+                    session.merge(orm)
+                except OperationalError as e:
+                    logging.warning("Create table with {}".format(str(e)))
+                    self.base.metadata.create_all(self.engine)
             session.commit()
         except IntegrityError as e:
             logging.warning("Bulk write with error try on by one with {}".format(str(e)))

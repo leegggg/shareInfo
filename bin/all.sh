@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cd /home/ylin/shareInfo
-source ./env/bin/activate
+source ../env/bin/activate
 logfile=all.log
 
 

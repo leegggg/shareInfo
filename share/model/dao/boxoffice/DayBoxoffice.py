@@ -9,6 +9,7 @@ def rowToORM(row, date: datetime):
     obj = Model()
 
     obj.date = date
+    obj.timestamp = date
     obj.avgPrice = toInt(row.loc['AvgPrice'])  # 平均票价
     obj.avpPeoPle = toInt(row.loc['AvpPeoPle'])  # 场均人次
     obj.boxOffice = toFloat(row.loc['BoxOffice'])  # 单日票房（万）
@@ -43,4 +44,5 @@ class Model(Base):
     movieName = Column(String(255))  # 影片名
     sumBoxOffice = Column(Float(53))  # 累计票房（万）
     womIndex = Column(Float(53))  # 口碑指数
+    timestamp = Column(DateTime)
 

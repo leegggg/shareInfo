@@ -20,6 +20,7 @@ def rowToORM(row, date:datetime):
     obj.pk = "{name}_{date}".format(name=obj.cinemaName, date=dateTimeToTsStr(date))
 
     obj.date = date
+    obj.timestamp = date
 
     return obj
 
@@ -43,6 +44,7 @@ class Model(Base):
     todayBox = Column(Float(53))  # 当日票房
     todayShowCount = Column(Float(53))  # 当日场次
     price = Column(Float(53))  # 场均票价（元）
+    timestamp = Column(DateTime)
 
 
 

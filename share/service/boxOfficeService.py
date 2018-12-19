@@ -66,9 +66,14 @@ def updateMonthBoxoffice(con, year: int, month: int):
 def daily(con):
     logging.debug("Daily update boxOffice")
     date = datetime.now()
-    updateDayBoxoffice(con=con, date=date)
-    updateDayCinema(con=con, date=date)
     if date.day == 15:
         dateMonth = date - timedelta(days=20)
         updateMonthBoxoffice(con=con,year=dateMonth.year,month=dateMonth.month)
+
+
+def hourly(con):
+    logging.debug("Hourly update boxOffice")
+    date = datetime.now()
+    updateDayBoxoffice(con=con, date=date)
+    updateDayCinema(con=con, date=date)
 

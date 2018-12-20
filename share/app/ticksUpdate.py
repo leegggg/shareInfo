@@ -1,22 +1,20 @@
 import sys
 import logging
-from share.service import tickService
+from share.client.SqliteClient import SqliteClient
+from share.model.dao import Base
+import share.service as service
+import share.service.tickService as tickService
+from datetime import timedelta
+from datetime import datetime
+from share.util.config import getConfig, getInfluxDB
+from share.util import log
+from share.client import influxClient
+
 
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 
 def main():
-    import logging
-    from share.client.SqliteClient import SqliteClient
-    from share.model.dao import Base
-    import share.service as service
-    import share.service.tickService as tickService
-    from datetime import timedelta
-    from datetime import datetime
-    from share.util.config import getConfig, getInfluxDB
-    from share.util import log
-    from share.client import influxClient
-
     # Load config
     config = getConfig()
     logger = log.getLogger(config)

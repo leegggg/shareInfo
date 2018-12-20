@@ -1,17 +1,18 @@
+from datetime import timedelta
+from datetime import datetime
 import sys
+import logging
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 
-import logging
+
+from share.client import influxClient
 from share.client.SqliteClient import SqliteClient
 from share.model.dao import Base
-import share.service as service
-import share.service.tickService as tickService
-from datetime import timedelta
-from datetime import datetime
 from share.util.config import getConfig, getInfluxDB
 from share.util import log
-from share.client import influxClient
+import share.service as service
+import share.service.tickService as tickService
 
 
 

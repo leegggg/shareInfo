@@ -2,9 +2,9 @@ from datetime import timedelta
 from datetime import datetime
 import sys
 import logging
+
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
-
 
 from share.client import influxClient
 from share.client.SqliteClient import SqliteClient

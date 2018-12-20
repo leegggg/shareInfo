@@ -1,4 +1,7 @@
 import sys
+sys.path.insert(0, '.')
+sys.path.insert(0, '..')
+
 import logging
 from share.client.SqliteClient import SqliteClient
 from share.model.dao import Base
@@ -11,8 +14,6 @@ from share.util import log
 from share.client import influxClient
 
 
-sys.path.insert(0, '.')
-sys.path.insert(0, '..')
 
 def main():
     # Load config

@@ -36,6 +36,7 @@ def main():
     end = datetime.now()
     try:
         codes = service.getAllCodes(dbclient)
+        # codes = ['000002']
         tickService.getTickAsync(
             codes=codes, dbinfo=influxInfo, start=start, end=end, multiplier=config.get('thread_multi'))
     except Exception as e:

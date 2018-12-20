@@ -31,8 +31,9 @@ def main():
 
     # Update Ticks
     logging.info("Daily Update Ticks")
-    start = datetime(year=2018, month=3, day=1)
-    end = start + timedelta(days=15)
+    start = datetime(year=2018, month=3, day=15)
+    #end = start + timedelta(days=15)
+    end = datetime.now()
     try:
         codes = service.getAllCodes(dbclient)
         tickService.getTickAsync(

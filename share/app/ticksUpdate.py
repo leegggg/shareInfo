@@ -31,7 +31,7 @@ def main():
 
     # Update Ticks
     logging.info("Daily Update Ticks")
-    start = datetime(year=2018, month=3, day=15)
+    start = datetime(year=2018, month=4, day=11)
     #end = start + timedelta(days=15)
     end = datetime.now()
     try:

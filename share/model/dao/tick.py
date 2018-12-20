@@ -1,11 +1,13 @@
 from share.util.numberUtil import toFloat, toInt, toStr
 from datetime import tzinfo, timedelta, datetime
+from dateutil import parser
 
 TIME_ZONE_OFFSET_SECONDS = 8 * 3600
 
 def rowToORM(row, code:str, currentStr:str):
     tsStr = "{}T{}".format(currentStr, toStr(row.loc['time']))
-    timestamp = datetime.fromisoformat(tsStr)
+    # timestamp = datetime.fromisoformat(tsStr)  # Only for py3.7+
+    timestamp = parser.parse(tsStr)
     timestamp = timestamp - timedelta(seconds=TIME_ZONE_OFFSET_SECONDS)
     typeStr = toStr(row.loc['type'])
     influxPoint = {

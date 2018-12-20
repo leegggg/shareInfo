@@ -2,14 +2,8 @@ import sys
 import logging
 from share.service import tickService
 
-
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
-
-
-
-
-
 
 def main():
     import logging

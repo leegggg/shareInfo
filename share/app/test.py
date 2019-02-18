@@ -5,13 +5,17 @@ from influxdb import InfluxDBClient
 from share.util.numberUtil import toFloat, toInt, toStr
 from datetime import tzinfo, timedelta, datetime
 from share.model.dao import tick
-
+from share.util.config import getConfig, getInfluxDB
+from share.client import influxClient
+from influxdb import DataFrameClient
+import pandas as pd
 
 TICK_TYPES = {
-    '买盘':1,
-    '中性盘':0,
-    '卖盘':-1
+    '买盘': 1,
+    '中性盘': 0,
+    '卖盘': -1
 }
+
 
 def main():
     import logging
@@ -20,41 +24,49 @@ def main():
     from share.util.config import getConfig
     from share.util import log
 
-
     # Load config
     config = getConfig()
     logger = log.getLogger(config)
-    logging.info(str(config))
+
+    logger.info(str(config))
     dbclient = SqliteClient(base=Base, url=config.get('db_url'))
-    influxClient = InfluxDBClient('localhost', 8086, 'root', 'root', 'example')
-    influxClient.create_database('shareDev')
+
+    influxInfo = getInfluxDB(config)
+    logger.info(str(influxInfo))
+    influx = influxClient.getDataFrameClient(influxInfo)
+    influx.create_database(influxInfo.get('db'))
 
     code = '000001'
-    start = datetime(year=2018,month=3,day=1)
+    start = datetime(year=2018, month=3, day=1)
     end = datetime.now()
 
-    current = start
-    while current < end:
-        # Weekends
-        if current.weekday() >= 5:
-            current = current + timedelta(days=1)
-            continue
 
-        currentStr = current.strftime("%Y-%m-%d")
-        logger.info("code: {}, date: {}".format(code,currentStr))
-        ticks = ts.get_tick_data(code=code, date=currentStr, src='tt')
-        if ticks is None:
-            logger.info("Skip")
-            current = current + timedelta(days=1)
-            continue
+    query = '''
+    SELECT mean("price") AS "mean_price" 
+        FROM "shareDev"."autogen"."share_tick" 
+        WHERE 
+                time > '2018-06-01T02:10:00.000Z' 
+            AND time < '2019-01-08T02:10:00.000Z' 
+            AND ("code"='000001' OR "code"='000002')
+        GROUP BY time(5d), "code"
+    '''
 
-        points = []
-        for _, row in ticks.iterrows():
-            points.append(tick.rowToORM(row=row,code=code,currentStr=currentStr))
+    query = '''
+    SELECT 
+        (max("price")-first("price"))/first("price") AS "max_price", 
+        (min("price")-first("price"))/first("price") AS "min_price"
+    FROM "shareDev"."autogen"."share_tick" 
+    WHERE 
+        time > now() - 180d 
+        AND ("code"='000001' OR "code"='000001') 
+    GROUP BY time(5d), "code"  fill(null)
+    '''
 
-        influxClient.write_points(points=points, database='shareDev')
-        current = current + timedelta(days=1)
+    print("Read DataFrame")
+    df = influx.query(query)
+
     pass
+
 
 if __name__ == '__main__':
     main()

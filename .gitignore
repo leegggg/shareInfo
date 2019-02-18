@@ -1,4 +1,5 @@
 *.db*
+*.pickle
 local/
 .DS_Store
 
